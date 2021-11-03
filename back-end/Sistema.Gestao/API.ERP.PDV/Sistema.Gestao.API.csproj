@@ -1,0 +1,77 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <ApplicationIcon>celular.ico</ApplicationIcon>
+    <Version>1.0.2</Version>
+    <UserSecretsId>62382b35-4a7b-46ac-ab0e-89840600588a</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="App_Start\**" />
+    <Compile Remove="Controllers\PainelAdministrador\**" />
+    <Compile Remove="Controllers\Wirecard\**" />
+    <Compile Remove="Views\AssinaturaCliente\**" />
+    <Content Remove="App_Start\**" />
+    <Content Remove="Controllers\PainelAdministrador\**" />
+    <Content Remove="Controllers\Wirecard\**" />
+    <Content Remove="Views\AssinaturaCliente\**" />
+    <EmbeddedResource Remove="App_Start\**" />
+    <EmbeddedResource Remove="Controllers\PainelAdministrador\**" />
+    <EmbeddedResource Remove="Controllers\Wirecard\**" />
+    <EmbeddedResource Remove="Views\AssinaturaCliente\**" />
+    <None Remove="App_Start\**" />
+    <None Remove="Controllers\PainelAdministrador\**" />
+    <None Remove="Controllers\Wirecard\**" />
+    <None Remove="Views\AssinaturaCliente\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\AssinanteController.cs" />
+    <Compile Remove="Controllers\AssinaturaController.cs" />
+    <Compile Remove="Controllers\ColaboradorController.cs" />
+    <Compile Remove="Helper\Pagarme.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.8.0" />
+    <PackageReference Include="ClosedXML" Version="0.95.2" />
+    <PackageReference Include="EntityFramework" Version="6.2.0" />
+    <PackageReference Include="EntityFramework.SqlServerCompact" Version="6.2.0" />
+    <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.3" />
+    <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.3" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.4.0" />
+    <PackageReference Include="Microsoft.Owin" Version="4.1.0" />
+    <PackageReference Include="Microsoft.Owin.Security" Version="4.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Ninject" Version="3.2.0" />
+    <PackageReference Include="Ninject.Web.Common" Version="3.2.0" />
+    <PackageReference Include="Ninject.Web.Common.WebHost" Version="3.2.0" />
+    <PackageReference Include="Ninject.Web.WebApi" Version="3.2.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Properties\ServiceDependencies\" />
+  </ItemGroup>
+
+</Project>

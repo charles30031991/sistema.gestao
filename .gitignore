@@ -3,3 +3,19 @@
 ################################################################################
 
 /back-end/Sistema.Gestao/API.ERP.PDV/wwwroot
+/back-end/Sistema.Gestao/packages
+/back-end/Sistema.Gestao/Sistema.Gestao/bin/Debug/net5.0
+/back-end/Sistema.Gestao/Sistema.Gestao/obj/Debug/net5.0
+/back-end/Sistema.Gestao/Sistema.Gestao/obj
+/back-end/Sistema.Gestao/Sistema.Gestao/wwwroot
+/back-end/Sistema.Gestao/Sistema.Gestao.Application/bin/Debug
+/back-end/Sistema.Gestao/Sistema.Gestao.Application/obj/Debug
+/back-end/Sistema.Gestao/Sistema.Gestao.Domain/bin/Debug
+/back-end/Sistema.Gestao/Sistema.Gestao.Infra.Data/bin/Debug
+/back-end/Sistema.Gestao/Sistema.Gestao.Infra.Data/obj/Debug
+/back-end/Sistema.Gestao/Sistema.Gestao.MVC/App_Data
+/.vs/Sistema.Gestao/config
+/.vs/Sistema.Gestao/DesignTimeBuild
+/back-end/Sistema.Gestao/.vs/Sistema.Gestao/config/applicationhost.config
+/back-end/Sistema.Gestao/.vs/Sistema.Gestao/DesignTimeBuild/.dtbcache.v2
+/back-end/Sistema.Gestao/API.ERP.PDV/.config/dotnet-tools.json
