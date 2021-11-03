@@ -10,13 +10,13 @@ namespace Sistema.Gestao.Infra.Data.Contexto
     public class SistemaContext : DbContext
     {
         public SistemaContext()
-            : base("Sistema.Gestao")
+                   : base("name=Entities")
         {
 
         }
 
-        public DbSet<Funcionario> Funcionarios { get; set; }
-        public DbSet<Empresa> Empresas { get; set; }
+        public virtual DbSet<Empresa> Empresa { get; set; }
+        public virtual DbSet<Funcionario> Funcionario { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -32,7 +32,7 @@ namespace Sistema.Gestao.Infra.Data.Contexto
                 .Configure(p => p.HasColumnType("varchar"));
 
             modelBuilder.Properties<string>()
-                .Configure(p => p.HasMaxLength(100));
+                .Configure(p => p.HasMaxLength(200));
 
             modelBuilder.Configurations.Add(new EmpresaConfiguration());
             modelBuilder.Configurations.Add(new FuncionarioConfiguration());

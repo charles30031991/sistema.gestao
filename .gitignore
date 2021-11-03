@@ -19,3 +19,6 @@
 /back-end/Sistema.Gestao/.vs/Sistema.Gestao/config/applicationhost.config
 /back-end/Sistema.Gestao/.vs/Sistema.Gestao/DesignTimeBuild/.dtbcache.v2
 /back-end/Sistema.Gestao/API.ERP.PDV/.config/dotnet-tools.json
+/back-end/Sistema.Gestao/Sistema.Gestao.Domain/obj/Debug/edmxResourcesToEmbed/Entities
+/back-end/Sistema.Gestao/Sistema.Gestao.Domain/obj/Debug/TempPE
+/back-end/Sistema.Gestao/Sistema.Gestao.Domain/obj/Debug

@@ -30,9 +30,28 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Entities\Empresa.cs" />
+    <Compile Include="Entities\Empresa.cs">
+      <DependentUpon>SistemaDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\EnumCargo.cs" />
-    <Compile Include="Entities\Funcionario.cs" />
+    <Compile Include="Entities\Funcionario.cs">
+      <DependentUpon>SistemaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SistemaDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SistemaDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SistemaDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SistemaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SistemaDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SistemaDB.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\Repositories\IFuncionarioRepository.cs" />
     <Compile Include="Interfaces\Repositories\IEmpresaRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepositoryBase.cs" />
@@ -43,10 +62,49 @@
     <Compile Include="Services\FuncionarioService.cs" />
     <Compile Include="Services\EmpresaService.cs" />
     <Compile Include="Services\ServiceBase.cs" />
+    <Compile Include="ViewModel\EmpresaViewModel.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <EntityDeploy Include="Entities\SistemaDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SistemaDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="Entities\SistemaDB.edmx.diagram">
+      <DependentUpon>SistemaDB.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Entities\SistemaDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SistemaDB.Context.cs</LastGenOutput>
+      <DependentUpon>SistemaDB.edmx</DependentUpon>
+    </Content>
+    <Content Include="Entities\SistemaDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SistemaDB.edmx</DependentUpon>
+      <LastGenOutput>SistemaDB.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
