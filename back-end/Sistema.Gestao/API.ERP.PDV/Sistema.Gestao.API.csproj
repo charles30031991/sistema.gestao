@@ -75,6 +75,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Sistema.Gestao.Application\Sistema.Gestao.Application.csproj" />
     <ProjectReference Include="..\Sistema.Gestao.Domain\Sistema.Gestao.Domain.csproj" />
     <ProjectReference Include="..\Sistema.Gestao.Infra.Data\Sistema.Gestao.Infra.Data.csproj" />
   </ItemGroup>

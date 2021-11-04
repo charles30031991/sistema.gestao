@@ -37,7 +37,7 @@ namespace Sistema.Gestao.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
         [AllowAnonymous]
-        public async Task<IActionResult> Logar([FromBody] EmpresaViewModel empresaDados)
+        public async Task<IActionResult> Logar([FromBody] EmpresaRequestViewModel empresaDados)
         {
             try
             {

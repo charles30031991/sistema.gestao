@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Sistema.Gestao.Application;
+using Sistema.Gestao.Application.Interface;
+using Sistema.Gestao.Domain.Interfaces.Repositories;
+using Sistema.Gestao.Domain.Interfaces.Services;
+using Sistema.Gestao.Domain.Services;
+using Sistema.Gestao.Infra.Data.Repositories;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Sistema.Gestao.API.Extensoes
@@ -11,9 +17,13 @@ namespace Sistema.Gestao.API.Extensoes
     {
         public static void ConfigurarInjecaoDependencias(this IServiceCollection services)
         {
-            //services.AddTransient<IUsuarioAppService, UsuarioAppService>();
-            //services.AddTransient<IUsuarioService, UsuarioService>();
-            //services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+            services.AddTransient<IEmpresaAppService, EmpresaAppService>();
+            services.AddTransient<IEmpresaService, EmpresaService>();
+            services.AddTransient<IEmpresaRepository, EmpresaRepository>();
+
+            services.AddTransient<IFuncionarioAppService, FuncionarioAppService>();
+            services.AddTransient<IFuncionarioService, FuncionarioService>();
+            services.AddTransient<IFuncionarioRepository, Funcionarioepository>();
         }
 
         public static IServiceCollection AdicionarDocumentacaoSwagger(this IServiceCollection services)

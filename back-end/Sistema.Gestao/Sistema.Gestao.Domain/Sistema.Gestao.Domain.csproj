@@ -62,7 +62,8 @@
     <Compile Include="Services\FuncionarioService.cs" />
     <Compile Include="Services\EmpresaService.cs" />
     <Compile Include="Services\ServiceBase.cs" />
-    <Compile Include="ViewModel\EmpresaViewModel.cs" />
+    <Compile Include="ViewModel\EmpresaResponseViewModel.cs" />
+    <Compile Include="ViewModel\EmpresaRequestViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Entities\SistemaDB.edmx">
