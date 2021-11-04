@@ -28,9 +28,9 @@ namespace Sistema.Gestao.Application
             await _EmpresaService.Excluir(id);
         }
 
-        public async Task<List<EmpresaResponseViewModel>> ObterEmpresa(EmpresaRequestViewModel filtro)
+        public async Task<List<EmpresaResponseViewModel>> ObterEmpresa(string nome)
         {
-            return await _EmpresaService.ObterEmpresa(filtro);
+            return await _EmpresaService.ObterEmpresa(nome);
         }
 
         public async Task<EmpresaResponseViewModel> ObterPeloId(int id)

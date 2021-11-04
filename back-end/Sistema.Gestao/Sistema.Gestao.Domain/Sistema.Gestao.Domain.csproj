@@ -62,6 +62,8 @@
     <Compile Include="Services\FuncionarioService.cs" />
     <Compile Include="Services\EmpresaService.cs" />
     <Compile Include="Services\ServiceBase.cs" />
+    <Compile Include="ViewModel\FuncionarioResponseViewModel.cs" />
+    <Compile Include="ViewModel\FuncionarioRequestViewModel.cs" />
     <Compile Include="ViewModel\EmpresaResponseViewModel.cs" />
     <Compile Include="ViewModel\EmpresaRequestViewModel.cs" />
   </ItemGroup>

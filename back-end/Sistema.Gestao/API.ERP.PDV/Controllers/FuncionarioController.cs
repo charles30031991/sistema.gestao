@@ -11,16 +11,16 @@ namespace Sistema.Gestao.API.Controllers
     [Authorize]
     [Route("v1/[controller]")]
     [ApiController]
-    public class EmpresaController : Controller
+    public class FuncionarioController : Controller
     {
-        private readonly IEmpresaAppService _empresaAppService;
+        private readonly IFuncionarioAppService _FuncionarioAppService;
 
-        public EmpresaController(IEmpresaAppService empresaAppService)
+        public FuncionarioController(IFuncionarioAppService FuncionarioAppService)
         {
-            _empresaAppService = empresaAppService;
+            _FuncionarioAppService = FuncionarioAppService;
         }
 
-        [HttpDelete("empresa/{id}")]
+        [HttpDelete("funcionario/{id}")]
         public async Task<IActionResult> Excluir(int id)
         {
             try
@@ -28,7 +28,7 @@ namespace Sistema.Gestao.API.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
 
-                await _empresaAppService.Excluir(id);
+                await _FuncionarioAppService.Excluir(id);
 
                 return Ok();
             }
@@ -38,7 +38,7 @@ namespace Sistema.Gestao.API.Controllers
             }
         }
 
-        [HttpGet("empresa/{id}")]
+        [HttpGet("funcionario/{id}")]
         public async Task<IActionResult> ObterPeloId(int id)
         {
             try
@@ -49,8 +49,8 @@ namespace Sistema.Gestao.API.Controllers
                     return BadRequest(erros);
                 }
 
-                var empresa = await _empresaAppService.ObterPeloId(id);
-                return Ok(empresa);
+                var Funcionario = await _FuncionarioAppService.ObterPeloId(id);
+                return Ok(Funcionario);
             }
             catch (Exception e)
             {
@@ -58,8 +58,8 @@ namespace Sistema.Gestao.API.Controllers
             }
         }
 
-        [HttpGet("empresas/{nome}")]
-        public async Task<IActionResult> ObterEmpresa(string nome)
+        [HttpGet("funcionarios/{nome}")]
+        public async Task<IActionResult> ObterFuncionario(string nome)
         {
             try
             {
@@ -69,17 +69,17 @@ namespace Sistema.Gestao.API.Controllers
                     return BadRequest(erros);
                 }
 
-                var empresa = await _empresaAppService.ObterEmpresa(nome);
-                return Ok(empresa);
+                var Funcionario = await _FuncionarioAppService.ObterFuncionario(nome);
+                return Ok(Funcionario);
             }
             catch (Exception e)
             {
-                return BadRequest("Erro ao obter empresa! Tente novamente.");
+                return BadRequest("Erro ao obter Funcionario! Tente novamente.");
             }
         }
 
-        [HttpPut("empresa")]
-        public async Task<IActionResult> Editar(EmpresaRequestViewModel empresa)
+        [HttpPut("funcionario")]
+        public async Task<IActionResult> Editar(FuncionarioRequestViewModel Funcionario)
         {
             try
             {
@@ -89,18 +89,18 @@ namespace Sistema.Gestao.API.Controllers
                     return BadRequest(erros);
                 }
 
-                await _empresaAppService.Editar(empresa.ToEmpresa());
+                await _FuncionarioAppService.Editar(Funcionario.ToFuncionario());
 
                 return Ok();
             }
             catch (Exception e)
             {
-                return BadRequest("Erro ao editar empresa! Tente novamente.");
+                return BadRequest("Erro ao editar Funcionario! Tente novamente.");
             }
         }
 
-        [HttpPost("empresa")]
-        public async Task<IActionResult> Salvar(EmpresaRequestViewModel empresa)
+        [HttpPost("funcionario")]
+        public async Task<IActionResult> Salvar(FuncionarioRequestViewModel Funcionario)
         {
             try
             {
@@ -110,13 +110,13 @@ namespace Sistema.Gestao.API.Controllers
                     return BadRequest(erros);
                 }
 
-                await _empresaAppService.Salvar(empresa.ToEmpresa());
+                await _FuncionarioAppService.Salvar(Funcionario.ToFuncionario());
 
                 return Ok();
             }
             catch (Exception e)
             {
-                return BadRequest("Erro ao editar Empresa! Tente novamente.");
+                return BadRequest("Erro ao editar Funcionario! Tente novamente.");
             }
         }
     }

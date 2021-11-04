@@ -23,10 +23,10 @@ namespace Sistema.Gestao.Infra.Data.Repositories
             await Db.SaveChangesAsync();
         }
 
-        public async Task<List<EmpresaResponseViewModel>> ObterEmpresa(EmpresaRequestViewModel filtro)
+        public async Task<List<EmpresaResponseViewModel>> ObterEmpresa(string nome)
         {
             return await (from e in Db.Empresa
-                          where (string.IsNullOrEmpty(filtro.Nome) || filtro.Nome == e.Nome)
+                          where (string.IsNullOrEmpty(nome) || e.Nome == e.Nome)
                           select new EmpresaResponseViewModel
                           {
                               Id = e.Id,

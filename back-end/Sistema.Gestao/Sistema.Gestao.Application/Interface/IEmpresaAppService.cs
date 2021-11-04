@@ -9,7 +9,7 @@ namespace Sistema.Gestao.Application.Interface
     public interface IEmpresaAppService : IAppServiceBase<Empresa>
     {
         Task Excluir(int id);
-        Task<List<EmpresaResponseViewModel>> ObterEmpresa(EmpresaRequestViewModel filtro);
+        Task<List<EmpresaResponseViewModel>> ObterEmpresa(string nome);
         Task<EmpresaResponseViewModel> ObterPeloId(int id);
         Task Editar(Empresa empresa);
         Task Salvar(Empresa empresa);

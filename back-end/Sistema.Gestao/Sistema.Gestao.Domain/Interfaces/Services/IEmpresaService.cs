@@ -9,7 +9,7 @@ namespace Sistema.Gestao.Domain.Interfaces.Services
     {
         Task Editar(Empresa empresa);
         Task Excluir(int id);
-        Task<List<EmpresaResponseViewModel>> ObterEmpresa(EmpresaRequestViewModel filtro);
+        Task<List<EmpresaResponseViewModel>> ObterEmpresa(string nome);
         Task<EmpresaResponseViewModel> ObterPeloId(int id);
         Task Salvar(Empresa empresa);
     }

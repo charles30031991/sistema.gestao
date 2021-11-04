@@ -38,9 +38,9 @@ namespace Sistema.Gestao.Domain.Services
             await _EmpresaRepository.Excluir(id);
         }
 
-        public async Task<List<EmpresaResponseViewModel>> ObterEmpresa(EmpresaRequestViewModel filtro)
+        public async Task<List<EmpresaResponseViewModel>> ObterEmpresa(string nome)
         {
-            return await _EmpresaRepository.ObterEmpresa(filtro);
+            return await _EmpresaRepository.ObterEmpresa(nome);
         }
 
         public async Task<EmpresaResponseViewModel> ObterPeloId(int id)
