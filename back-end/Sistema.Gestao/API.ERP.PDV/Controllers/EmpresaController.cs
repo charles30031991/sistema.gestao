@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Sistema.Gestao.API.Services;
 using Sistema.Gestao.Application.Interface;
 using Sistema.Gestao.Domain.ViewModel;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace Sistema.Gestao.API.Controllers
 {
     [Authorize]
-    [Route("v1/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class EmpresaController : Controller
     {
@@ -58,8 +59,8 @@ namespace Sistema.Gestao.API.Controllers
             }
         }
 
-        [HttpGet("empresas/{nome}")]
-        public async Task<IActionResult> ObterEmpresa(string nome)
+        [HttpGet]
+        public async Task<IActionResult> ObterEmpresa([FromQuery(Name = "nome")] string nome)
         {
             try
             {
@@ -117,6 +118,22 @@ namespace Sistema.Gestao.API.Controllers
             catch (Exception e)
             {
                 return BadRequest("Erro ao editar Empresa! Tente novamente.");
+            }
+        }
+
+        [HttpGet("BuscarEndereco")]
+        public async Task<IActionResult> BuscarEndereco(string cep)
+        {
+            try
+            {
+                var result = await ViaCepService.ObterEndereco(cep);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                var newEx = new Exception($"erro ao buscar endereço: {cep}", ex);
+                return BadRequest(ex);
             }
         }
     }

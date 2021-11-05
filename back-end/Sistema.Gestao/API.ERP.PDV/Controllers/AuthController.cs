@@ -14,11 +14,11 @@ using System.Data.Entity;
 using Sistema.Gestao.Domain.ViewModel;
 using Sistema.Gestao.Infra.Data.Contexto;
 using Sistema.Gestao.Domain.Entities;
-using Sistema.Gestao.Domain.Entities;
 
 namespace Sistema.Gestao.API.Controllers
 {
     [Route("api/[controller]")]
+    [AllowAnonymous]
     public class AuthController : ControladorBase
     {
 
@@ -55,9 +55,9 @@ namespace Sistema.Gestao.API.Controllers
 
                     return Ok(new
                     {
-                        token = GerarToken(empresa.Id, empresa.Nome),
                         userInfo = new
                         {
+                            token = GerarToken(empresa.Id, empresa.Nome),
                             nome = empresa.Nome,
                             Numero = empresa.Numero,
                             Bairro = empresa.Bairro,

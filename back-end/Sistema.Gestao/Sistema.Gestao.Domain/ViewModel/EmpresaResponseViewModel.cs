@@ -1,4 +1,5 @@
-﻿using Sistema.Gestao.Domain.Entities;
+﻿using Newtonsoft.Json;
+using Sistema.Gestao.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,9 @@ namespace Sistema.Gestao.Domain.ViewModel
         public string Localidade { get; set; }
         public string UF { get; set; }
         public string Bairro { get; set; }
+        [JsonIgnore]
         public string Senha { get; set; }
+        [JsonIgnore]
         public ICollection<Funcionario> Funcionario { get; set; }
     }
 }

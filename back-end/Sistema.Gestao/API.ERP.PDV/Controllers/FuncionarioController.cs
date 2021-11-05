@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Sistema.Gestao.API.Controllers
 {
     [Authorize]
-    [Route("v1/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class FuncionarioController : Controller
     {
