@@ -14,7 +14,7 @@
 
     <div class="row">
       <div class="text-center">
-        <b-button class="mb-5" variant="success" @click.prevent="abrirModal()"
+        <b-button class="mb-5" variant="success" v-b-modal.modal-1
           >Cadastrar</b-button
         >
       </div>
@@ -31,6 +31,7 @@
                 <th>Complemento</th>
                 <th>UF</th>
                 <th>Bairro</th>
+                <th>Cidade</th>
                 <th>Ações</th>
               </tr>
             </thead>
@@ -61,10 +62,17 @@
                   {{ item.bairro }}
                 </td>
                 <td>
+                  {{ item.localidade }}
+                </td>
+                <td>
                   <div class="mb-1">
                     <b-button variant="success">Editar</b-button>
                     <b-button variant="danger">Excluir</b-button>
-                    <b-button variant="warning">Visualizar</b-button>
+                    <b-button
+                      variant="warning"
+                      @click.prevent="visualizarModal(item)"
+                      >Visualizar</b-button
+                    >
                   </div>
                 </td>
               </tr>
@@ -73,7 +81,7 @@
         </div>
       </div>
     </div>
-    <FormularioEmpresa :showModal="showModal" />
+    <FormularioEmpresa :showModal="showModal" :dados="dados" />
   </div>
 </template>
 
@@ -81,6 +89,7 @@
 import Swal from "sweetalert2";
 import axios from "axios";
 import config from "../config";
+import auth from "../auth";
 import FormularioEmpresa from "@/components/FormularioEmpresa.vue";
 
 export default {
@@ -91,6 +100,7 @@ export default {
     return {
       nomeEmpresa: "",
       empresas: [],
+      dados: [],
       showModal: false,
     };
   },
@@ -105,13 +115,29 @@ export default {
     },
   },
   methods: {
+    visualizarModal(item) {
+      this.dados = {
+        nome: item.nome,
+        telefone: item.telefone,
+        endereco: item.endereco,
+        numero: item.numero,
+        complemento: item.complemento,
+        bairro: item.bairro,
+        localidade: item.localidade,
+        cep: item.cep,
+        uf: item.uf,
+      };
+      this.abrirModal();
+    },
     abrirModal() {
       this.showModal = true;
     },
     async carregarDados() {
       try {
+        let token = auth.getUserInfo().userInfo.token;
         var response = await axios.get(
-          `${config.API_URL}/empresa?nome=` + this.nomeEmpresa
+          `${config.API_URL}/empresa?nome=` + this.nomeEmpresa,
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         this.empresas = response.data;
       } catch (e) {

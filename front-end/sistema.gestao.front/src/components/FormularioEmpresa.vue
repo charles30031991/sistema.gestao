@@ -1,14 +1,15 @@
 <template>
   <div>
     <b-modal
-      :visible="showModal"
+      ref="cadastroEmpresa"
+      v-model="showModal"
       title="Cadastrar Empresa"
       :hide-footer="true"
-      @hide="hideModal"
       size="lg"
+      id="modal-1"
     >
       <ValidationObserver v-slot="{ handleSubmit, invalid }">
-        <form @submit.prevent="handleSubmit(realizarResgate)">
+        <form @submit.prevent="handleSubmit(salvar)">
           <div class="row">
             <div class="col-6">
               <div class="form-group">
@@ -43,7 +44,7 @@
                     class="form-control"
                     v-model="telefone"
                     :class="classes"
-                    placeholder="Nome"
+                    placeholder="(00) 0000-00000"
                   />
                   <span class="invalid-feedback">{{ errors[0] }}</span>
                 </ValidationProvider>
@@ -100,15 +101,15 @@
                 <div class="form-group">
                   <label>Estado</label>
                   <ValidationProvider
-                    name="estado"
+                    name="uf"
                     rules="required"
                     v-slot="{ errors, classes }"
                   >
                     <select
                       class="form-control"
-                      v-model="estado"
+                      v-model="uf"
                       :class="classes"
-                      data-test-id="input-estado"
+                      data-test-id="input-uf"
                     >
                       <option value>Selecione...</option>
                       <option>AC</option>
@@ -177,7 +178,7 @@
                   >
                     <input
                       type="tel"
-                      v-model="numEndereco"
+                      v-model="numeroEndereco"
                       class="form-control"
                       :class="classes"
                       autocomplete="nope"
@@ -226,6 +227,27 @@
                   </ValidationProvider>
                 </div>
               </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Senha</label>
+                  <ValidationProvider
+                    name="senha"
+                    rules="required"
+                    v-slot="{ errors, classes }"
+                  >
+                    <input
+                      type="password"
+                      class="form-control"
+                      :class="classes"
+                      v-model="senha"
+                      autocomplete="nope"
+                      data-test-id="input-senha"
+                    />
+                    <span class="invalid-feedback">{{ errors[0] }}</span>
+                  </ValidationProvider>
+                </div>
+              </div>
             </div>
           </div>
           <hr class="mt-3 mb-3" />
@@ -235,7 +257,7 @@
             :disabled="loading || invalid"
           >
             <span v-if="loading">Enviando...</span>
-            <span v-else>Enviar pedido de resgate</span>
+            <span v-else>Salvar</span>
           </button>
         </form>
       </ValidationObserver>
@@ -247,29 +269,28 @@
 import Swal from "sweetalert2";
 import axios from "axios";
 import config from "../config";
+import auth from "../auth";
 
 export default {
   props: ["showModal"],
   name: "FormularioEmpresa",
   data() {
     return {
-      name: "",
-      telefone: undefined,
+      nome: "",
+      telefone: null,
+      numeroEndereco: undefined,
       nameState: null,
+      senha: null,
       //Endereço
       cep: undefined,
       logradouro: undefined,
       cidade: undefined,
       bairro: undefined,
-      estado: undefined,
-      numEndereco: undefined,
+      uf: undefined,
       complemento: undefined,
       loadingCep: false,
       loading: false,
       exibirCamposEndereco: false,
-      //Informações pessoais
-      idCliente: undefined,
-      nome: undefined,
     };
   },
   watch: {
@@ -280,7 +301,42 @@ export default {
       }, 700);
     },
   },
+  mounted() {
+    this.carregarTela();
+  },
   methods: {
+    carregarTela() {
+      this.telefone = this.dados?.telefone;
+    },
+    async salvar() {
+      this.loading = true;
+      var data = {
+        Nome: this.nome,
+        Telefone: this.telefone,
+        senha: this.senha,
+        Endereco: this.logradouro,
+        Numero: this.numeroEndereco,
+        Complemento: this.complemento,
+        Bairro: this.bairro,
+        Localidade: this.cidade,
+        CEP: this.cep,
+        UF: this.uf,
+      };
+      let token = auth.getUserInfo().userInfo.token;
+      try {
+        var resposta = await axios.post(`${config.API_URL}/empresa`, data, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (resposta.status == 200) {
+          Swal.fire("", "Empresa salvar com sucesso", "warning");
+        } else {
+          Swal.fire("", "Erro ao salvar a empresa", "error");
+        }
+      } catch (error) {
+        Swal.fire("", "Erro ao salvar a empresa", "error");
+      }
+      this.loading = false;
+    },
     buscarEnderecoCep: function (cep) {
       //Busca apenas se tiver digitado o cep completo
       if (!cep || cep.length < 9) {
@@ -290,7 +346,7 @@ export default {
       this.loadingCep = true;
 
       axios
-        .get(`${config.API_URL}/v1/empresa/BuscarEndereco?cep=${cep}`)
+        .get(`${config.API_URL}/empresa/BuscarEndereco?cep=${cep}`)
         .then((response) => {
           this.loadingCep = false;
           this.exibirCamposEndereco = true;
@@ -309,15 +365,12 @@ export default {
           this.logradouro = response.data.logradouro;
           this.cidade = response.data.localidade;
           this.bairro = response.data.bairro;
-          this.estado = response.data.uf;
+          this.uf = response.data.uf;
         })
         .catch(() => {
           this.loadingCep = false;
           this.exibirCamposEndereco = true;
         });
-    },
-    hideModal() {
-      this.$emit("hide");
     },
     checkFormValidity() {
       const valid = this.$refs.form.checkValidity();

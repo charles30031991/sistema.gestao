@@ -26,7 +26,7 @@ namespace Sistema.Gestao.Infra.Data.Repositories
         public async Task<List<EmpresaResponseViewModel>> ObterEmpresa(string nome)
         {
             return await (from e in Db.Empresa
-                          where (string.IsNullOrEmpty(nome) || nome == e.Nome)
+                          where (string.IsNullOrEmpty(nome) || e.Nome.Contains(nome))
                           select new EmpresaResponseViewModel
                           {
                               Id = e.Id,

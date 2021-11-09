@@ -100,7 +100,7 @@ namespace Sistema.Gestao.API.Controllers
             }
         }
 
-        [HttpPost("empresa")]
+        [HttpPost]
         public async Task<IActionResult> Salvar(EmpresaRequestViewModel empresa)
         {
             try
@@ -122,6 +122,7 @@ namespace Sistema.Gestao.API.Controllers
         }
 
         [HttpGet("BuscarEndereco")]
+        [AllowAnonymous]
         public async Task<IActionResult> BuscarEndereco(string cep)
         {
             try

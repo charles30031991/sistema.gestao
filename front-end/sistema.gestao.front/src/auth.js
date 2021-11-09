@@ -34,7 +34,6 @@ export default {
     if (value) {
       userInfo = JSON.parse(value);
       var token = userInfo.token;
-      debugger
       this.applyAuthorizationHeader(token);
     }
     return userInfo;
@@ -46,7 +45,6 @@ export default {
     EventBus.$emit("update-login");
   },
   applyAuthorizationHeader(token) {
-    debugger
     axios.defaults.headers.common["Authorization"] = token
       ? `Bearer ${token}`
       : "";
