@@ -20,8 +20,8 @@ namespace Sistema.Gestao.API.Controllers
             _FuncionarioAppService = FuncionarioAppService;
         }
 
-        [HttpDelete("funcionario/{id}")]
-        public async Task<IActionResult> Excluir(int id)
+        [HttpDelete]
+        public async Task<IActionResult> Excluir([FromQuery(Name = "id")] int id)
         {
             try
             {
@@ -58,8 +58,8 @@ namespace Sistema.Gestao.API.Controllers
             }
         }
 
-        [HttpGet("funcionarios/{nome}")]
-        public async Task<IActionResult> ObterFuncionario(string nome)
+        [HttpGet]
+        public async Task<IActionResult> ObterFuncionario([FromQuery(Name = "nome")] string nome)
         {
             try
             {
@@ -78,28 +78,7 @@ namespace Sistema.Gestao.API.Controllers
             }
         }
 
-        [HttpPut("funcionario")]
-        public async Task<IActionResult> Editar(FuncionarioRequestViewModel Funcionario)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    var erros = ModelState.Values.SelectMany(e => e.Errors);
-                    return BadRequest(erros);
-                }
-
-                await _FuncionarioAppService.Editar(Funcionario.ToFuncionario());
-
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                return BadRequest("Erro ao editar Funcionario! Tente novamente.");
-            }
-        }
-
-        [HttpPost("funcionario")]
+        [HttpPost]
         public async Task<IActionResult> Salvar(FuncionarioRequestViewModel Funcionario)
         {
             try
@@ -109,8 +88,14 @@ namespace Sistema.Gestao.API.Controllers
                     var erros = ModelState.Values.SelectMany(e => e.Errors);
                     return BadRequest(erros);
                 }
-
-                await _FuncionarioAppService.Salvar(Funcionario.ToFuncionario());
+                if (Funcionario.Id > 0)
+                {
+                    await _FuncionarioAppService.Editar(Funcionario.ToFuncionario());
+                }
+                else
+                {
+                    await _FuncionarioAppService.Salvar(Funcionario.ToFuncionario());
+                }
 
                 return Ok();
             }

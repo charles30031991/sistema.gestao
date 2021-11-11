@@ -27,13 +27,15 @@ namespace Sistema.Gestao.Infra.Data.Repositories
         public async Task<List<FuncionarioResponseViewModel>> ObterFuncionario(string nome)
         {
             return await (from e in Db.Funcionario
-                          where (string.IsNullOrEmpty(nome) || nome == e.Nome)
+                          where (string.IsNullOrEmpty(nome) || e.Nome.Contains(nome))
                           select new FuncionarioResponseViewModel
                           {
                               Id = e.Id,
                               Cargo = e.Cargo,
                               Nome = e.Nome,
                               Salario = e.Salario,
+                              EmpresaId = e.EmpresaId,
+                              NomeEmpresa = e.Empresa.Nome,
                           }).ToListAsync();
         }
 
@@ -56,4 +58,5 @@ namespace Sistema.Gestao.Infra.Data.Repositories
             await Db.SaveChangesAsync();
         }
     }
+
 }

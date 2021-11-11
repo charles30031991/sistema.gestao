@@ -4,14 +4,11 @@
       <MenuSuperior msg="Welcome to Your Vue.js App" />
     </div>
     <div class="container">
-      <h4 class="my-5">Lista de Empresas</h4>
+      <h4 class="my-5">Lista de Funcionários</h4>
       <div class="row">
         <div class="col-6">
-          <b-input-group prepend="Nome da Empresa" class="mb-5">
-            <b-form-input
-              aria-label="First name"
-              v-model="nomeEmpresa"
-            ></b-form-input>
+          <b-input-group prepend="Nome" class="mb-5">
+            <b-form-input aria-label="First name" v-model="nome"></b-form-input>
           </b-input-group>
         </div>
       </div>
@@ -28,45 +25,25 @@
               <thead>
                 <tr>
                   <th>Nome</th>
-                  <th>Telefone</th>
-                  <th>Endereco</th>
-                  <th>CEP</th>
-                  <th>Numero</th>
-                  <th>Complemento</th>
-                  <th>UF</th>
-                  <th>Bairro</th>
-                  <th>Cidade</th>
+                  <th>Cargo</th>
+                  <th>Salário</th>
+                  <th>Empresa</th>
                   <th>Ações</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in empresas" :key="index">
+                <tr v-for="(item, index) in Funcionarios" :key="index">
                   <td>
                     {{ item.nome }}
                   </td>
                   <td>
-                    {{ item.telefone }}
+                    {{ item.nomeCargo }}
                   </td>
                   <td>
-                    {{ item.endereco }}
+                    {{ item.salario }}
                   </td>
                   <td>
-                    {{ item.cep }}
-                  </td>
-                  <td>
-                    {{ item.numero }}
-                  </td>
-                  <td>
-                    {{ item.complemento }}
-                  </td>
-                  <td>
-                    {{ item.uf }}
-                  </td>
-                  <td>
-                    {{ item.bairro }}
-                  </td>
-                  <td>
-                    {{ item.localidade }}
+                    {{ item.nomeEmpresa }}
                   </td>
                   <td>
                     <div class="mb-1">
@@ -91,7 +68,7 @@
           </div>
         </div>
       </div>
-      <FormularioEmpresa
+      <FormularioFuncionario
         @hide="hideModalDados"
         :showModal="showModal"
         :dados="dados"
@@ -104,24 +81,24 @@
 </template>
 
 <script>
-import MenuSuperior from "@/components/MenuSuperior.vue";
 import Swal from "sweetalert2";
 import axios from "axios";
 import config from "../config";
 import auth from "../auth";
-import FormularioEmpresa from "@/components/FormularioEmpresa.vue";
+import FormularioFuncionario from "@/components/FormularioFuncionario.vue";
+import MenuSuperior from "@/components/MenuSuperior.vue";
 import Rodape from "@/components/Rodape.vue";
 
 export default {
   components: {
-    FormularioEmpresa,
+    FormularioFuncionario,
     MenuSuperior,
     Rodape,
   },
   data() {
     return {
-      nomeEmpresa: "",
-      empresas: [],
+      nome: "",
+      Funcionarios: [],
       dados: [],
       tituloFormulario: "",
       showModal: false,
@@ -142,7 +119,7 @@ export default {
     this.carregarDados();
   },
   watch: {
-    nomeEmpresa: function (newVal, oldVal) {
+    nome: function (newVal, oldVal) {
       if (newVal != oldVal) {
         this.carregarDados();
       }
@@ -152,7 +129,7 @@ export default {
     async excluir(item) {
       try {
         let token = auth.getUserInfo().userInfo.token;
-        await axios.delete(`${config.API_URL}/empresa?id=` + item.id, {
+        await axios.delete(`${config.API_URL}/Funcionario?id=` + item.id, {
           headers: { Authorization: `Bearer ${token}` },
         });
         Swal.fire("", "Registro Excluido com sucesso", "success");
@@ -170,35 +147,29 @@ export default {
       this.showModal = false;
     },
     popular(item) {
-      debugger;
       this.dados = {
         nome: item.nome,
-        telefone: item.telefone,
-        endereco: item.endereco,
-        numero: item.numero,
-        complemento: item.complemento,
-        bairro: item.bairro,
-        localidade: item.localidade,
-        cep: item.cep,
-        uf: item.uf,
+        cargo: item.cargo,
+        salario: item.salario,
         id: item.id,
-        funcionario: item.funcionario,
+        empresa: item.empresaId,
+        nomeEmpresa: item.nomeEmpresa,
       };
     },
     editarModal(item) {
       this.popular(item);
       this.showModal = true;
-      this.tituloFormulario = "Alterar Empresa";
+      this.tituloFormulario = "Alterar Funcionario";
       this.desabilitar = false;
     },
     visualizarModal(item) {
       this.popular(item);
       this.showModal = true;
-      this.tituloFormulario = "Visualizar Empresa";
+      this.tituloFormulario = "Visualizar Funcionario";
       this.desabilitar = true;
     },
     abrirModal() {
-      this.tituloFormulario = "Cadastrar Empresa";
+      this.tituloFormulario = "Cadastrar Funcionario";
       this.showModal = true;
       this.desabilitar = false;
     },
@@ -206,10 +177,10 @@ export default {
       try {
         let token = auth.getUserInfo().userInfo.token;
         var response = await axios.get(
-          `${config.API_URL}/empresa?nome=` + this.nomeEmpresa,
+          `${config.API_URL}/Funcionario?nome=` + this.nome,
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        this.empresas = response.data;
+        this.Funcionarios = response.data;
       } catch (e) {
         Swal.fire({
           type: "error",

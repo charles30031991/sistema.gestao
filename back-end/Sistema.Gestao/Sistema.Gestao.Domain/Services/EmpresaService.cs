@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Sistema.Gestao.API.Helper;
 using Sistema.Gestao.Domain.Entities;
 using Sistema.Gestao.Domain.Interfaces.Repositories;
 using Sistema.Gestao.Domain.Interfaces.Services;
@@ -30,6 +31,7 @@ namespace Sistema.Gestao.Domain.Services
             obj.Numero = empresa.Numero;
             obj.Telefone = empresa.Telefone;
             obj.UF = empresa.UF;
+            obj.Senha = Cripty.Crypt.Encrypt(empresa.Senha, Cripty.Crypt.CHAVE_SEGURANCA, Cripty.CryptProvider.DES);
             await _EmpresaRepository.Editar(obj);
         }
 
@@ -50,6 +52,7 @@ namespace Sistema.Gestao.Domain.Services
 
         public async Task Salvar(Empresa empresa)
         {
+            empresa.Senha = Cripty.Crypt.Encrypt(empresa.Senha, Cripty.Crypt.CHAVE_SEGURANCA, Cripty.CryptProvider.DES);
             await _EmpresaRepository.Salvar(empresa);
         }
     }

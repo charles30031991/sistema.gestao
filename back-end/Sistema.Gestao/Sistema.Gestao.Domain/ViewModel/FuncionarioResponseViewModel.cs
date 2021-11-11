@@ -14,5 +14,7 @@ namespace Sistema.Gestao.Domain.ViewModel
         public int Cargo { get; set; }
         public decimal Salario { get; set; }
         public int EmpresaId { get; set; }
+        public string NomeEmpresa { get; set; }
+        public string NomeCargo { get; internal set; }
     }
 }

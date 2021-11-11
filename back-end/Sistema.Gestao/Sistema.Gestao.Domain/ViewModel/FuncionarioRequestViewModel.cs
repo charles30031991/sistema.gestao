@@ -18,6 +18,8 @@ namespace Sistema.Gestao.Domain.ViewModel
                 Id = Id,
                 Cargo = Cargo,
                 Salario = Salario,
+                EmpresaId = EmpresaId,
+                Nome = Nome
             };
         }
     }

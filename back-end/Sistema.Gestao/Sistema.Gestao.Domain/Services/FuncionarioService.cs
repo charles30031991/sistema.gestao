@@ -32,7 +32,25 @@ namespace Sistema.Gestao.Domain.Services
 
         public async Task<List<FuncionarioResponseViewModel>> ObterFuncionario(string nome)
         {
-            return await _FuncionarioRepository.ObterFuncionario(nome);
+            var resultado = await _FuncionarioRepository.ObterFuncionario(nome);
+
+            foreach (var item in resultado)
+            {
+                switch (item.Cargo)
+                {
+                    case (int)Cargo.Programador:
+                        item.NomeCargo = "Programador";
+                        break;
+                    case (int)Cargo.Designer:
+                        item.NomeCargo = "Designer";
+                        break;
+                    case (int)Cargo.Administração:
+                        item.NomeCargo = "Administração";
+                        break;
+                }
+            }
+
+            return resultado;
         }
 
         public async Task<FuncionarioResponseViewModel> ObterPeloId(int id)
@@ -44,5 +62,13 @@ namespace Sistema.Gestao.Domain.Services
         {
             await _FuncionarioRepository.Salvar(funcionario);
         }
+
+        public enum Cargo
+        {
+            Programador = 1,
+            Designer = 2,
+            Administração = 3
+        }
+
     }
 }

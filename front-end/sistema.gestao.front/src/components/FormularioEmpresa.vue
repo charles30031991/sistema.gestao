@@ -1,12 +1,11 @@
 <template>
   <div>
     <b-modal
-      ref="cadastroEmpresa"
-      v-model="showModal"
-      title="Cadastrar Empresa"
+      :visible="showModal"
+      :title="tituloFormulario"
       :hide-footer="true"
       size="lg"
-      id="modal-1"
+      @hide="hideModal"
     >
       <ValidationObserver v-slot="{ handleSubmit, invalid }">
         <form @submit.prevent="handleSubmit(salvar)">
@@ -25,6 +24,8 @@
                     v-model="nome"
                     :class="classes"
                     placeholder="Nome"
+                    maxlength="200"
+                    :disabled="desabilitar"
                   />
                   <span class="invalid-feedback">{{ errors[0] }}</span>
                 </ValidationProvider>
@@ -44,7 +45,9 @@
                     class="form-control"
                     v-model="telefone"
                     :class="classes"
+                    v-mask="'(##) ####-#####'"
                     placeholder="(00) 0000-00000"
+                    :disabled="desabilitar"
                   />
                   <span class="invalid-feedback">{{ errors[0] }}</span>
                 </ValidationProvider>
@@ -68,6 +71,7 @@
                       v-mask="'#####-###'"
                       autocomplete="nope"
                       data-test-id="input-cep"
+                      :disabled="desabilitar"
                     />
                     <span class="invalid-feedback">{{ errors[0] }}</span>
                   </ValidationProvider>
@@ -92,11 +96,13 @@
                       autocomplete="nope"
                       maxlength="50"
                       data-test-id="input-cidade"
+                      :disabled="desabilitar"
                     />
                     <span class="invalid-feedback">{{ errors[0] }}</span>
                   </ValidationProvider>
                 </div>
               </div>
+
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Estado</label>
@@ -110,6 +116,7 @@
                       v-model="uf"
                       :class="classes"
                       data-test-id="input-uf"
+                      :disabled="desabilitar"
                     >
                       <option value>Selecione...</option>
                       <option>AC</option>
@@ -163,6 +170,7 @@
                       autocomplete="nope"
                       maxlength="100"
                       data-test-id="input-endereco"
+                      :disabled="desabilitar"
                     />
                     <span class="invalid-feedback">{{ errors[0] }}</span>
                   </ValidationProvider>
@@ -185,6 +193,7 @@
                       maxlength="10"
                       v-mask="'##########'"
                       data-test-id="input-numero-endereco"
+                      :disabled="desabilitar"
                     />
                     <span class="invalid-feedback">{{ errors[0] }}</span>
                   </ValidationProvider>
@@ -196,14 +205,22 @@
               <div class="col-md-8">
                 <div class="form-group">
                   <label>Complemento</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    v-model="complemento"
-                    autocomplete="nope"
-                    maxlength="100"
-                    data-test-id="input-complemento"
-                  />
+                  <ValidationProvider
+                    name="número"
+                    rules="required"
+                    v-slot="{ errors }"
+                  >
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="complemento"
+                      autocomplete="nope"
+                      maxlength="100"
+                      data-test-id="input-complemento"
+                      :disabled="desabilitar"
+                    />
+                    <span class="invalid-feedback">{{ errors[0] }}</span>
+                  </ValidationProvider>
                 </div>
               </div>
               <div class="col-md-4">
@@ -222,12 +239,12 @@
                       autocomplete="nope"
                       maxlength="100"
                       data-test-id="input-bairro"
+                      :disabled="desabilitar"
                     />
                     <span class="invalid-feedback">{{ errors[0] }}</span>
                   </ValidationProvider>
                 </div>
               </div>
-
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Senha</label>
@@ -243,22 +260,55 @@
                       v-model="senha"
                       autocomplete="nope"
                       data-test-id="input-senha"
+                      :disabled="desabilitar"
                     />
                     <span class="invalid-feedback">{{ errors[0] }}</span>
                   </ValidationProvider>
                 </div>
               </div>
+
+              <div class="col-md-12">
+                <h4>Lista de Funcionários</h4>
+                <div class="col-lg-12 order-lg-2">
+                  <div>
+                    <table
+                      id="my-table"
+                      class="table table-bordered border-primary"
+                    >
+                      <thead>
+                        <tr>
+                          <th>Nome</th>
+                          <th>Salário</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(item, index) in Funcionarios" :key="index">
+                          <td>
+                            {{ item.nome }}
+                          </td>
+
+                          <td>
+                            {{ item.salario }}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <hr class="mt-3 mb-3" />
-          <button
-            class="btn btn-success btn-block"
-            type="submit"
-            :disabled="loading || invalid"
-          >
-            <span v-if="loading">Enviando...</span>
-            <span v-else>Salvar</span>
-          </button>
+          <di v-show="!desabilitar">
+            <button
+              class="btn btn-success btn-block"
+              type="submit"
+              :disabled="loading || invalid"
+            >
+              <span v-if="loading">Enviando...</span>
+              <span v-else>Salvar</span>
+            </button>
+          </di>
         </form>
       </ValidationObserver>
     </b-modal>
@@ -272,15 +322,19 @@ import config from "../config";
 import auth from "../auth";
 
 export default {
-  props: ["showModal"],
+  props: ["showModal", "dados", "tituloFormulario", "desabilitar"],
   name: "FormularioEmpresa",
   data() {
     return {
       nome: "",
+      id: 0,
+      abrirModal: false,
+      dadosCompleto: [],
       telefone: null,
       numeroEndereco: undefined,
       nameState: null,
       senha: null,
+      Funcionarios: [],
       //Endereço
       cep: undefined,
       logradouro: undefined,
@@ -300,13 +354,37 @@ export default {
         this.buscarEnderecoCep(value);
       }, 700);
     },
-  },
-  mounted() {
-    this.carregarTela();
+    dados: function (newVal) {
+      this.dadosCompleto = newVal;
+      debugger;
+      this.telefone = this.dadosCompleto?.telefone;
+      this.nome = this.dadosCompleto?.nome;
+      this.numeroEndereco = this.dadosCompleto?.numero;
+      this.complemento = this.dadosCompleto?.complemento;
+      this.bairro = this.dadosCompleto?.bairro;
+      this.cidade = this.dadosCompleto?.localidade;
+      this.cep = this.dadosCompleto?.cep;
+      this.uf = this.dadosCompleto?.uf;
+      this.id = this.dadosCompleto?.id;
+      this.Funcionarios = this.dadosCompleto?.funcionario;
+    },
   },
   methods: {
-    carregarTela() {
-      this.telefone = this.dados?.telefone;
+    hideModal() {
+      this.$emit("hide");
+
+      this.telefone = null;
+      this.nome = null;
+      this.numeroEndereco = null;
+      this.complemento = null;
+      this.bairro = null;
+      this.cidade = null;
+      this.cep = null;
+      this.uf = null;
+      this.senha = null;
+      this.id = 0;
+      this.logradouro = null;
+      this.Funcionarios = null;
     },
     async salvar() {
       this.loading = true;
@@ -321,6 +399,7 @@ export default {
         Localidade: this.cidade,
         CEP: this.cep,
         UF: this.uf,
+        id: this.id,
       };
       let token = auth.getUserInfo().userInfo.token;
       try {
@@ -328,7 +407,9 @@ export default {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (resposta.status == 200) {
-          Swal.fire("", "Empresa salvar com sucesso", "warning");
+          if (this.id > 0)
+            Swal.fire("", "Empresa alterada com sucesso", "success");
+          else Swal.fire("", "Empresa salvar com sucesso", "success");
         } else {
           Swal.fire("", "Erro ao salvar a empresa", "error");
         }
@@ -336,6 +417,7 @@ export default {
         Swal.fire("", "Erro ao salvar a empresa", "error");
       }
       this.loading = false;
+      this.hideModal();
     },
     buscarEnderecoCep: function (cep) {
       //Busca apenas se tiver digitado o cep completo
@@ -350,7 +432,6 @@ export default {
         .then((response) => {
           this.loadingCep = false;
           this.exibirCamposEndereco = true;
-
           //Se não veio os dados
           if (!response.data || !response.data.logradouro) {
             Swal.fire(
@@ -361,7 +442,6 @@ export default {
             return;
           }
 
-          //console.log(response);
           this.logradouro = response.data.logradouro;
           this.cidade = response.data.localidade;
           this.bairro = response.data.bairro;
@@ -370,6 +450,11 @@ export default {
         .catch(() => {
           this.loadingCep = false;
           this.exibirCamposEndereco = true;
+          Swal.fire(
+            "Atenção!",
+            "Não encontramos o CEP informado em nossa base. Por favor, preencha o endereço completo.",
+            "warning"
+          );
         });
     },
     checkFormValidity() {

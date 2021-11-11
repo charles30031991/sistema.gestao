@@ -21,8 +21,8 @@ namespace Sistema.Gestao.API.Controllers
             _empresaAppService = empresaAppService;
         }
 
-        [HttpDelete("empresa/{id}")]
-        public async Task<IActionResult> Excluir(int id)
+        [HttpDelete]
+        public async Task<IActionResult> Excluir([FromQuery(Name = "id")] int id)
         {
             try
             {
@@ -79,27 +79,6 @@ namespace Sistema.Gestao.API.Controllers
             }
         }
 
-        [HttpPut("empresa")]
-        public async Task<IActionResult> Editar(EmpresaRequestViewModel empresa)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    var erros = ModelState.Values.SelectMany(e => e.Errors);
-                    return BadRequest(erros);
-                }
-
-                await _empresaAppService.Editar(empresa.ToEmpresa());
-
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                return BadRequest("Erro ao editar empresa! Tente novamente.");
-            }
-        }
-
         [HttpPost]
         public async Task<IActionResult> Salvar(EmpresaRequestViewModel empresa)
         {
@@ -110,8 +89,14 @@ namespace Sistema.Gestao.API.Controllers
                     var erros = ModelState.Values.SelectMany(e => e.Errors);
                     return BadRequest(erros);
                 }
-
-                await _empresaAppService.Salvar(empresa.ToEmpresa());
+                if (empresa.Id > 0)
+                {
+                    await _empresaAppService.Editar(empresa.ToEmpresa());
+                }
+                else
+                {
+                    await _empresaAppService.Salvar(empresa.ToEmpresa());
+                }
 
                 return Ok();
             }

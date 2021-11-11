@@ -35,6 +35,7 @@ namespace Sistema.Gestao.Domain.ViewModel
                 Telefone = Telefone,
                 UF = UF,
                 Senha = this.Senha,
+                Id = this.Id,
             };
         }
     }

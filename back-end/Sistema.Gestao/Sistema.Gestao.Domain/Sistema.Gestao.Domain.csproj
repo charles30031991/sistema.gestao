@@ -52,6 +52,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SistemaDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Helper\Cripty.cs" />
     <Compile Include="Interfaces\Repositories\IFuncionarioRepository.cs" />
     <Compile Include="Interfaces\Repositories\IEmpresaRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepositoryBase.cs" />

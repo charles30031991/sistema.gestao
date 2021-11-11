@@ -4,7 +4,7 @@
       <b-navbar-nav class="">
         <b-nav-item href="EmpresaListar">Empresa </b-nav-item>
 
-        <b-nav-item href="#"> Funcionário</b-nav-item>
+        <b-nav-item href="FuncionarioListar"> Funcionário</b-nav-item>
       </b-navbar-nav>
     </b-navbar>
   </div>
