@@ -1,0 +1,14 @@
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\back-end\Sistema.Gestao.Domain\bin\Release\ProjetoModeloDDD.Domain.dll.config
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\back-end\Sistema.Gestao.Domain\bin\Release\ProjetoModeloDDD.Domain.dll
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\back-end\Sistema.Gestao.Domain\bin\Release\ProjetoModeloDDD.Domain.pdb
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\back-end\Sistema.Gestao.Domain\bin\Release\EntityFramework.dll
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\back-end\Sistema.Gestao.Domain\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\back-end\Sistema.Gestao.Domain\bin\Release\Newtonsoft.Json.dll
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\back-end\Sistema.Gestao.Domain\bin\Release\EntityFramework.xml
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\back-end\Sistema.Gestao.Domain\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\back-end\Sistema.Gestao.Domain\bin\Release\Newtonsoft.Json.xml
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\back-end\Sistema.Gestao.Domain\obj\Release\Sistema.Gestao.Domain.csproj.AssemblyReference.cache
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\back-end\Sistema.Gestao.Domain\obj\Release\Sistema.Gestao.Domain.csproj.CoreCompileInputs.cache
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\back-end\Sistema.Gestao.Domain\obj\Release\Sistema.Gestao.Domain.csproj.CopyComplete
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\back-end\Sistema.Gestao.Domain\obj\Release\ProjetoModeloDDD.Domain.dll
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\back-end\Sistema.Gestao.Domain\obj\Release\ProjetoModeloDDD.Domain.pdb

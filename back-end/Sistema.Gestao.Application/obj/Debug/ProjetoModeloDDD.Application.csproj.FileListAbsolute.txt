@@ -1,0 +1,9 @@
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\sistema.gestao\back-end\Sistema.Gestao\ProjetoModeloDDD.Application\bin\Debug\ProjetoModeloDDD.Application.dll
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\sistema.gestao\back-end\Sistema.Gestao\ProjetoModeloDDD.Application\bin\Debug\ProjetoModeloDDD.Application.pdb
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\sistema.gestao\back-end\Sistema.Gestao\ProjetoModeloDDD.Application\bin\Debug\ProjetoModeloDDD.Domain.dll
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\sistema.gestao\back-end\Sistema.Gestao\ProjetoModeloDDD.Application\bin\Debug\ProjetoModeloDDD.Domain.pdb
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\sistema.gestao\back-end\Sistema.Gestao\ProjetoModeloDDD.Application\obj\Debug\ProjetoModeloDDD.Application.csproj.AssemblyReference.cache
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\sistema.gestao\back-end\Sistema.Gestao\ProjetoModeloDDD.Application\obj\Debug\ProjetoModeloDDD.Application.csproj.CoreCompileInputs.cache
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\sistema.gestao\back-end\Sistema.Gestao\ProjetoModeloDDD.Application\obj\Debug\ProjetoModeloDDD.Application.csproj.CopyComplete
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\sistema.gestao\back-end\Sistema.Gestao\ProjetoModeloDDD.Application\obj\Debug\ProjetoModeloDDD.Application.dll
+C:\Users\marqu\OneDrive\Documents\Sistema.Gestao\sistema.gestao\back-end\Sistema.Gestao\ProjetoModeloDDD.Application\obj\Debug\ProjetoModeloDDD.Application.pdb

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="sistema.gestaoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Empresa" EntityType="sistema.gestaoModel.Empresa" />
+    <EntitySet Name="Funcionario" EntityType="sistema.gestaoModel.Funcionario" />
+    <AssociationSet Name="FK_Funcionario_Empresa" Association="sistema.gestaoModel.FK_Funcionario_Empresa">
+      <End Role="Empresa" EntitySet="Empresa" />
+      <End Role="Funcionario" EntitySet="Funcionario" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Empresa">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Telefone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Endereco" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CEP" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Numero" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Complemento" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Localidade" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="UF" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Bairro" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Funcionario" Relationship="sistema.gestaoModel.FK_Funcionario_Empresa" FromRole="Empresa" ToRole="Funcionario" />
+    <Property Name="Senha" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Funcionario">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Cargo" Type="Int32" Nullable="false" />
+    <Property Name="Salario" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="EmpresaId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Empresa" Relationship="sistema.gestaoModel.FK_Funcionario_Empresa" FromRole="Funcionario" ToRole="Empresa" />
+  </EntityType>
+  <Association Name="FK_Funcionario_Empresa">
+    <End Type="sistema.gestaoModel.Empresa" Role="Empresa" Multiplicity="1" />
+    <End Type="sistema.gestaoModel.Funcionario" Role="Funcionario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Funcionario">
+        <PropertyRef Name="EmpresaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
